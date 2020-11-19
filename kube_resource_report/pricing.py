@@ -11,7 +11,7 @@ ONE_GIBI = 1024 ** 3
 
 # just assume 60% spot discount
 # see also https://aws.amazon.com/ec2/spot/instance-advisor/
-DEFAULT_SPOT_DISCOUNT = 0.6
+DEFAULT_SPOT_DISCOUNT = 0.2
 
 NODE_COSTS_MONTHLY = {}
 NODE_SPOT_COSTS_MONTHLY = {}

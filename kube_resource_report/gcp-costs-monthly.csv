@@ -3528,3 +3528,4 @@ us-east1,n1-ultramem-80-preemptible,1944.7371,80,1922
 us-west1,n1-ultramem-80-preemptible,1944.7371,80,1922
 us-west2,n1-ultramem-80-preemptible,2109.3188,80,1922
 us-west3,n1-ultramem-80-preemptible,2109.3188,80,1922
+us-west1,n2-standard-32,907.70,32,128
