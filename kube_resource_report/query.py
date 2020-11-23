@@ -48,7 +48,7 @@ NODE_LABEL_INSTANCE_TYPE = os.environ.get(
 
 # https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/#labels
 OBJECT_LABEL_APPLICATION = os.environ.get(
-    "OBJECT_LABEL_APPLICATION", "application,app,app.kubernetes.io/name"
+    "OBJECT_LABEL_APPLICATION", "application,app,k8s-app,app.kubernetes.io/name"
 ).split(",")
 OBJECT_LABEL_COMPONENT = os.environ.get(
     "OBJECT_LABEL_COMPONENT", "component,app.kubernetes.io/component"
@@ -91,6 +91,9 @@ def get_team_from_labels(labels):
         if label_name in labels:
             return labels[label_name]
     return ""
+
+
+
 
 
 def find_ingress_backend_application(client: pykube.HTTPClient, ingress: Ingress, rule):
