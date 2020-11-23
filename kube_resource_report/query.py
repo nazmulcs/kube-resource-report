@@ -55,6 +55,11 @@ OBJECT_LABEL_COMPONENT = os.environ.get(
 ).split(",")
 OBJECT_LABEL_TEAM = os.environ.get("OBJECT_LABEL_TEAM", "team,owner").split(",")
 
+OBJECT_LABEL_INSTANCE = os.environ.get(
+    "OBJECT_LABEL_INSTANCE", "instance,app.kubernetes.io/instance").split(",")
+
+OBJECT_LABEL_PART = os.environ.get(
+    "OBJECT_LABEL_PART", "app.kubernetes.io/part-of").split(",")
 
 logger = logging.getLogger(__name__)
 
