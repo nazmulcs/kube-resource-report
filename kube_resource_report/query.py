@@ -86,11 +86,11 @@ def get_component_from_labels(labels):
     return ""
 
 
-def get_team_from_labels(labels):
+def get_team_from_labels(labels, namespace):
     for label_name in OBJECT_LABEL_TEAM:
         if label_name in labels:
             return labels[label_name]
-    return ""
+    return namespace
 
 
 
@@ -262,7 +262,7 @@ def map_pod(pod: Pod, cost_per_cpu: float, cost_per_memory: float):
 
     application = get_application_from_labels(pod.labels)
     component = get_component_from_labels(pod.labels)
-    team = get_team_from_labels(pod.labels)
+    team = get_team_from_labels(pod.labels, pod.namespace)
     requests: Dict[str, float] = collections.defaultdict(float)
     container_images = []
     container_names = []

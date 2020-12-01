@@ -37,16 +37,10 @@ FACTORS = {
 def parse_resource(v):
     """
     Parse a Kubernetes resource value.
-
-    >>> parse_resource('100m')
-    0.1
-    >>> parse_resource('100M')
-    1000000000
-    >>> parse_resource('2Gi')
-    2147483648
-    >>> parse_resource('2k')
-    2048
     """
+    match = ''
     match = RESOURCE_PATTERN.match(v)
-    factor = FACTORS[match.group(2)]
-    return int(match.group(1)) * factor
+    if match is not None:
+        factor = FACTORS[match.group(2)]
+        return int(match.group(1)) * factor
+    return 1.0
