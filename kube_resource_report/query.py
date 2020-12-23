@@ -48,13 +48,18 @@ NODE_LABEL_INSTANCE_TYPE = os.environ.get(
 
 # https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/#labels
 OBJECT_LABEL_APPLICATION = os.environ.get(
-    "OBJECT_LABEL_APPLICATION", "application,app,app.kubernetes.io/name"
+    "OBJECT_LABEL_APPLICATION", "application,app,k8s-app,app.kubernetes.io/name"
 ).split(",")
 OBJECT_LABEL_COMPONENT = os.environ.get(
     "OBJECT_LABEL_COMPONENT", "component,app.kubernetes.io/component"
 ).split(",")
 OBJECT_LABEL_TEAM = os.environ.get("OBJECT_LABEL_TEAM", "team,owner").split(",")
 
+OBJECT_LABEL_INSTANCE = os.environ.get(
+    "OBJECT_LABEL_INSTANCE", "instance,app.kubernetes.io/instance").split(",")
+
+OBJECT_LABEL_PART = os.environ.get(
+    "OBJECT_LABEL_PART", "app.kubernetes.io/part-of").split(",")
 
 logger = logging.getLogger(__name__)
 
@@ -81,11 +86,14 @@ def get_component_from_labels(labels):
     return ""
 
 
-def get_team_from_labels(labels):
+def get_team_from_labels(labels, namespace):
     for label_name in OBJECT_LABEL_TEAM:
         if label_name in labels:
             return labels[label_name]
-    return ""
+    return namespace
+
+
+
 
 
 def find_ingress_backend_application(client: pykube.HTTPClient, ingress: Ingress, rule):
@@ -254,7 +262,7 @@ def map_pod(pod: Pod, cost_per_cpu: float, cost_per_memory: float):
 
     application = get_application_from_labels(pod.labels)
     component = get_component_from_labels(pod.labels)
-    team = get_team_from_labels(pod.labels)
+    team = get_team_from_labels(pod.labels, pod.namespace)
     requests: Dict[str, float] = collections.defaultdict(float)
     container_images = []
     container_names = []
